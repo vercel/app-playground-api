@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true
+  },
   "dependencies": {
     "@types/node": "20.4.5",
     "@types/react": "18.2.17",
