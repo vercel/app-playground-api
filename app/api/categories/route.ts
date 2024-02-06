@@ -1,3 +1,4 @@
+import cors from '@/app/lib/cors';
 import type { Category } from './category';
 
 export const runtime = 'edge';
@@ -26,15 +27,27 @@ export async function GET(request: Request) {
 
   const parent = searchParams.get('parent');
   const categories = data.filter((category) =>
-    parent ? category.parent === parent : category.parent === null,
+    parent ? category.parent === parent : category.parent === null
   );
 
-  return new Response(JSON.stringify(categories), {
-    status: 200,
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
+  return cors(
+    request,
+    new Response(JSON.stringify(categories), {
+      status: 200,
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+  );
+}
+
+export async function OPTIONS(request: Request) {
+  return cors(
+    request,
+    new Response(null, {
+      status: 204,
+    })
+  );
 }
 
 const data: Category[] = [
